@@ -1,8 +1,8 @@
-import { _initPrototype } from './prototype'
+import { _initCallback } from './callback'
 
 function underscore() {  
 }
 
-_initPrototype(underscore)
+_initCallback(underscore)
 
 export default underscore

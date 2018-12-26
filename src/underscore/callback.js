@@ -1,5 +1,5 @@
 
-export function _initPrototype(underscore) {
+export function _initCallback(underscore) {
   /**
    * 
    * @param {Function} func 
