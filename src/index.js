@@ -24,3 +24,6 @@ console.log(_.unique(arr, false, item => {
 }))
 
 console.log(_.deepCopy([{name: 123, age: 22}]))
+
+const flatten = [1, 2, [3, 4, [4, 5, [6, 7]]], {name: 123}]
+console.log(_.flatten(flatten, true, false))
