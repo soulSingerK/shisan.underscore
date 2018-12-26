@@ -75,4 +75,14 @@ export function _initCallback(underscore) {
     }
     return throttled
   }
+
+  underscore.prototype.type = function(val) {
+    const classType = {}
+    "Boolean Number String Function Array Date RegExp Object Error".split(' ').map(item => {
+      classType[`[object ${item}]`] = item.toLowerCase()
+    })
+    return typeof val === 'object' || typeof val === 'function' ?
+      classType[Object.prototype.toString.call(val)] || "object" :
+      typeof val
+  }
 }

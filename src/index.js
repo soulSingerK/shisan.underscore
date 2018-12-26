@@ -22,3 +22,5 @@ const arr = [1, 2, '1', '2']
 console.log(_.unique(arr, false, item => {
   return +item
 }))
+
+console.log(_.type(new Error()))
