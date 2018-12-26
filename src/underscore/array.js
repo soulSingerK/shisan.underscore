@@ -1,6 +1,6 @@
 export function _initArray(underscore) {
   /**
-   * 
+   * 数组去重
    * @param {Array} arr 
    * @param {Boolean} isSort 数组是否有序 
    * @param {Function} iteratee 对数组的每一项进行处理 
@@ -24,5 +24,14 @@ export function _initArray(underscore) {
       }
     }
     return res
+  }
+
+  underscore.prototype.deepCopy = function (obj) {
+    if (typeof obj !== 'object') return
+    let newObj = obj instanceof Array ? [] : {}
+    for (let key in obj) {
+      newObj[key] = typeof obj[key] === 'object' ? this.deepCopy(obj[key]) : obj[key]
+    }
+    return newObj
   }
 }

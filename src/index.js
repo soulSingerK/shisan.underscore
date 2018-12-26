@@ -23,4 +23,4 @@ console.log(_.unique(arr, false, item => {
   return +item
 }))
 
-console.log(_.type(new Error()))
+console.log(_.deepCopy([{name: 123, age: 22}]))
