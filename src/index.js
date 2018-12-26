@@ -4,9 +4,9 @@ const _ = new underscore()
 
 let count = 1
 const container = document.getElementById('container')
-function getUserAction() {
-  container.innerHTML = count++
-}
+// function getUserAction() {
+//   container.innerHTML = count++
+// }
 
 
 // const setUserAction = _.debounce(getUserAction, 100)
@@ -16,4 +16,9 @@ function getUserAction() {
 // }
 // container.onmousemove = getUserAction
 
-container.onmousemove = _.throttle(getUserAction, 1000, { trailing: true, leading: false })
+// container.onmousemove = _.throttle(getUserAction, 1000, { trailing: true, leading: false })
+
+const arr = [1, 2, '1', '2']
+console.log(_.unique(arr, false, item => {
+  return +item
+}))
