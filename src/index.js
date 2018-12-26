@@ -1,4 +1,4 @@
-import underscore from './underscore.shisan'
+import underscore from './underscore'
 
 const _ = new underscore()
 
