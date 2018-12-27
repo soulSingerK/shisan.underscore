@@ -1,3 +1,4 @@
+import { isFunction, toString } from '../util'
 
 export function _initCallback(underscore) {
   /**
@@ -85,4 +86,88 @@ export function _initCallback(underscore) {
       classType[Object.prototype.toString.call(val)] || "object" :
       typeof val
   }
+
+  underscore.prototype.eq = function(a, b, aStack, bStack) {
+    // 为了区分出 +0 和 -0
+    if (a === b) return a !== 0 || 1 / a === 1 / b
+    
+    if (a == null || b == null) return false
+  
+    // 判断NaN
+    if (a !== a) return b !== b
+    
+    const type = typeof a
+    if (type !== 'function' && type !== 'object' && typeof b !== 'object') return false
+
+    // 复杂的对象使用deepEq 函数进行深度比较
+    return deepEq(a, b, aStack, bStack, this.eq)
+  }
+}
+
+function deepEq(a, b, aStack, bStack, eq) {
+  const aTypeName = toString.call(a)
+  const bTypeName = toString.call(b)
+
+  if(aTypeName !== bTypeName) return false
+
+  switch(aTypeName) {
+    case '[object RegExp]':
+    case '[object String]':
+      return '' + a === '' + b
+    case '[object Number]':
+      // 判断转化数字为NaN的
+      if (+a !== +a) return +b !== +b 
+      return +a === 0 ? 1 / + a === 1 / b : +a === +b
+    case '[object Date]':
+    case '[object Boolean]':
+      return +a === +b
+  }
+
+  const isArray = aTypeName === '[object Array]'
+  // 不是数组
+  if (!isArray) {
+    if (typeof a != 'object' || typeof b != 'object') return false
+    const aCtor = a.constructor
+    const bCtor = b.constructor
+    if (
+      aCtor !== bCtor &&
+      !(isFunction(aCtor) && aCtor instanceof aCtor && isFunction(bCtor) && bCtor instanceof bCtor) &&
+      'constructor' in a && 'constructor' in b
+    ) {
+      return false
+    }
+  }
+  aStack = aStack || []
+  bStack = bStack || []
+
+  let length = aStack.length
+  while (length--) {
+    if (aStack[length] === a) {
+      return bStack[length] === b
+    }
+  }
+  aStack.push(a)
+  bStack.push(b)
+
+  if (isArray) {
+    length = a.length
+    if (length !== b.length) return false
+    while (length--) {
+      if (!eq(a[length], b[length], aStack, bStack)) return false
+    }
+  } else {
+    const keys = Object.keys(a)
+    let key
+    length = keys.length
+
+    if (Object.keys(b).length !== length) return false
+    while (length--) {
+      key = keys[length]
+      if (!(b.hasOwnProperty(key) && eq(a[key], b[key], aStack, bStack))) return false
+    }
+  }
+  
+  aStack.pop()
+  bStack.pop()
+  return true
 }

@@ -19,6 +19,8 @@ const container = document.getElementById('container')
 // container.onmousemove = _.throttle(getUserAction, 1000, { trailing: true, leading: false })
 
 const arr = [1, 2, '1', '2']
+const arr1 = [1, 2, '1', '2']
+
 console.log(_.unique(arr, false, item => {
   return +item
 }))
@@ -27,3 +29,8 @@ console.log(_.deepCopy([{name: 123, age: 22}]))
 
 const flatten = [1, 2, [3, 4, [4, 5, [6, 7]]], {name: 123}]
 console.log(_.flatten(flatten, true, false))
+
+console.log(`eq: ${_.eq(arr, arr1)}`)
+console.log(`eq: ${_.eq(-0, +0)}`)
+console.log(`eq: ${_.eq({name: '1'}, {name: 1})}`)
+

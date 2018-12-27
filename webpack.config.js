@@ -16,8 +16,8 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: 'babel-loader',
-        exclude: /node_modules/
+        use: 'babel-loader?cacheDirectory',
+        include: [path.resolve(__dirname, 'src')]        
       }
     ]
   },
