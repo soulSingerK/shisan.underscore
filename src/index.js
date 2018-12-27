@@ -34,3 +34,13 @@ console.log(`eq: ${_.eq(arr, arr1)}`)
 console.log(`eq: ${_.eq(-0, +0)}`)
 console.log(`eq: ${_.eq({name: '1'}, {name: 1})}`)
 
+
+
+const arrCurry = _.curry(function(a, b, c) {
+  return [a, b, c]
+})
+
+// console.log(arrCurry(1, 2, 3))
+console.log(arrCurry(1)(2)(3))
+console.log(arrCurry(1))
+// console.log(arrCurry(1, 2)(3))
