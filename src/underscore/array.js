@@ -12,7 +12,7 @@ export function _initArray(underscore) {
     for (let i = 0; i < arr.length; i++) {
       let value = arr[i]
       let computed = iteratee ? iteratee(value, i, arr) : value
-      if (isSort) {
+      if (isSort) { // 如果是已经排序的，只需要判断当前元素与上一个元素是否相同
         if (!i || seen !== computed) {
           res.push(computed)
         }

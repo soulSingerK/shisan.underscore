@@ -2,7 +2,9 @@ import { isFunction, toString } from '../util'
 
 export function _initCallback(underscore) {
   /**
-   * 
+   * 原理：你尽管触发事件，但是我一定在事件触发n秒后才执行，如果你在一个事件触发
+   * n秒内又触发了此事件，那我就以新的事件的时间为准，n秒后才执行，总之，就是等你
+   * 触发事件n秒后不再触发事件，我才执行
    * @param {Function} func 
    * @param {Int} wait 
    * @param {Boolean} immediate // 是否立即执行一次 
@@ -35,7 +37,7 @@ export function _initCallback(underscore) {
   }
   
   /**
-   * 
+   * 原理：如果持续触发事件，每隔一段时间，只执行一次事件
    * @param {*} func 
    * @param {*} wait 
    * @param {Object} options
