@@ -1,4 +1,5 @@
 import underscore from './underscore'
+import { Event } from './event'
 
 const _ = new underscore()
 
@@ -44,3 +45,12 @@ const arrCurry = _.curry(function(a, b, c) {
 console.log(arrCurry(1)(2)(3))
 console.log(arrCurry(1))
 // console.log(arrCurry(1, 2)(3))
+
+
+const event = new Event()
+
+event.on('test', () => {
+  console.log('custom event test')
+})
+
+event.trigger('test')
